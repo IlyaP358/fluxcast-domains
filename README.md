@@ -60,6 +60,9 @@ domains/*.json  ──►  pytest validation (CI on every PR)
 - **The sync is apex-safe.** Every record it creates is tagged
   `managed-by:fluxcast-domains`; it only ever touches its own records, so the
   `fluxcast.dev` landing page and any hand-made record are never at risk.
+- **`URL` records redirect automatically.** Cloudflare has no `URL` record type,
+  so an [edge worker](worker/) reads the published registry and serves the
+  redirect. New redirects go live with the merge, nothing to configure.
 
 ## Local development
 

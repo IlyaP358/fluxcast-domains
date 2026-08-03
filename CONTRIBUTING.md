@@ -73,7 +73,34 @@ adds **one JSON file**. No account, no dashboard, no cost.
 
 - `"proxied": true` routes through Cloudflare (free SSL, DDoS protection, hides
   your origin IP). Requires an `A`, `AAAA`, or `CNAME` record.
-- `"redirect_config"` sets custom redirect paths (requires a `URL` record or proxy).
+- `"redirect_config"` tunes how a `URL` redirect behaves (see below).
+
+### Redirect options
+
+A plain `URL` record redirects to your target and keeps the query string, but
+drops the path. Add `redirect_config` to change that:
+
+```json
+{
+    "owner": { "username": "your-github-username" },
+    "records": { "URL": "https://example.com" },
+    "redirect_config": {
+        "redirect_paths": true,
+        "custom_paths": { "/docs": "https://docs.example.com" },
+        "permanent": false
+    }
+}
+```
+
+| Option | Effect |
+| ------ | ------ |
+| `redirect_paths` | Forwards the request path, so `/blog` lands on `target/blog`. |
+| `custom_paths` | Sends specific paths to their own targets. Takes priority over `redirect_paths`. |
+| `permanent` | Uses a `301` instead of the default `302`. |
+
+Redirects use `302` by default so you can change your target later and have it
+take effect within minutes. Only set `"permanent": true` when your target is
+final, since browsers cache `301`s aggressively.
 
 ## HTTPS
 

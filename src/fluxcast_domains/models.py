@@ -18,6 +18,9 @@ class RedirectConfig(BaseModel):
 
     custom_paths: dict[str, str] | None = None
     redirect_paths: bool | None = None
+    # Issue a 301 instead of the default 302. Only set this once the target is
+    # final: browsers cache permanent redirects aggressively.
+    permanent: bool | None = None
 
 
 class Domain(BaseModel):
