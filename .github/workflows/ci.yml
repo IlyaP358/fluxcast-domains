@@ -47,6 +47,10 @@ jobs:
 
                   REMOVED=$(gh api --paginate --jq '[.[] | select(.status == "removed") | {name: .filename, data: .patch}]' /repos/${{ github.repository }}/pulls/${{ github.event.number }}/files)
                   echo "DELETED_FILES=$REMOVED" >> $GITHUB_ENV
+
+                  SINCE=$(date -u -d '14 days ago' +%Y-%m-%d)
+                  RECENT=$(gh search prs --repo ${{ github.repository }} --author "${{ github.event.pull_request.user.login }}" --created ">=${SINCE}" --limit 100 --json number --jq 'length' 2>/dev/null || echo "0")
+                  echo "PR_AUTHOR_RECENT_COUNT=$RECENT" >> $GITHUB_ENV
               env:
                   GH_TOKEN: ${{ github.token }}
 

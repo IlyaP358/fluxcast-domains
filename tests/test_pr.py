@@ -17,6 +17,12 @@ from fluxcast_domains.constants import DOMAINS_DIR
 from fluxcast_domains.loader import load_json, load_lists
 
 REQUIRED_ENV = ("PR_AUTHOR", "PR_AUTHOR_ID", "CHANGED_FILES", "DELETED_FILES")
+PACE_REQUIRED_ENV = ("PR_AUTHOR_ID", "PR_AUTHOR_RECENT_COUNT")
+
+# No more than this many PRs per author within the trailing window CI computes
+# (see ci.yml: 14 days). Keeps the review queue manageable; this is a pace
+# limit, not a lifetime cap on how many subdomains someone can end up with.
+MAX_RECENT_PRS = 10
 
 
 def _pre_image_from_patch(patch: str) -> dict:
@@ -86,3 +92,26 @@ def test_contributor_only_touches_own_files():
         check(subdomain, str(data.get("owner", {}).get("username", "")), "delete")
 
     assert not failures, "\n".join(failures)
+
+
+@pytest.mark.skipif(
+    not all(os.environ.get(v) for v in PACE_REQUIRED_ENV),
+    reason="PR pace metadata not present (local run)",
+)
+def test_contributor_pr_pace():
+    lists = load_lists()
+    author_id = str(os.environ["PR_AUTHOR_ID"])
+    labels = os.environ.get("PR_LABELS", "")
+
+    if "ci: bypass-pace-check" in labels:
+        pytest.skip("pace check bypassed by label")
+    if author_id in lists.trusted_ids:
+        pytest.skip("trusted contributor is exempt from the pace check")
+
+    count = int(os.environ["PR_AUTHOR_RECENT_COUNT"])
+    author = os.environ.get("PR_AUTHOR", "contributor")
+    assert count <= MAX_RECENT_PRS, (
+        f"{author} has opened {count} pull requests in the last 14 days "
+        f"(limit: {MAX_RECENT_PRS}). Please space out new subdomain "
+        f"registrations rather than submitting them in a single batch."
+    )

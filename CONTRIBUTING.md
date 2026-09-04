@@ -138,6 +138,18 @@ Build what you want.
 Breaking these gets the subdomain removed and may get you blocked. See the
 [Terms of Service](TERMS_OF_SERVICE.md).
 
+## Pacing (anti-flood)
+
+No more than **10 new subdomain PRs per person within any 14-day window**.
+1, 3, even 10 at once is completely normal, no questions asked. If you're
+opening dozens in a single sitting, that's a flood, not a project, and PRs
+past the limit will be paused until things space out. This isn't a lifetime
+cap on how many subdomains you can end up with, just a "not all at once" rule
+so review stays fair and manageable for everyone.
+
+CI checks this automatically and will fail with a clear message if you're
+over the limit.
+
 ## Test locally before opening a PR
 
 ```bash
@@ -152,7 +164,8 @@ pytest -q
   repo. It's stripped from the raw API only. Omit it or use a throwaway.
 - **Do I get HTTPS?** Yes (see above).
 - **Can I get a wildcard (`*.name`)?** No.
-- **How many subdomains can I have?** No hard limit, but don't hoard =].
+- **How many subdomains can I have?** No lifetime limit, but no more than 10
+  new PRs in any 14-day window (see [Pacing](#pacing-anti-flood)).
 - **Can I point to GitHub Pages / Netlify / Vercel?** Yes, with a `CNAME`.
 - **Can I run my own nameservers?** Yes, with `NS` records (delegation).
 - **Lost access, or need to transfer ownership?** Open an issue.
