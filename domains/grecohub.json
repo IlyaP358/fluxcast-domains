@@ -1,0 +1,10 @@
+{
+  "project": "greco-roman-wrestling-hub",
+  "domain": "grecohub.fluxcast.dev",
+  "subdomain": "grecohub",
+  "request": {
+    "action": "assign_domain",
+    "provider": "fluxcast",
+    "target": "grecohub.fluxcast.dev"
+  }
+}
