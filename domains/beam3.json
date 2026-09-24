@@ -1,0 +1,4 @@
+{
+    "owner":   { "username": "theprojectmaker" },
+    "records": { "CNAME": "beam-gateway.pages.dev" }
+}
