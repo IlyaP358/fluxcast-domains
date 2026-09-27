@@ -1,8 +1,9 @@
-owner": {
+{
+  "owner": {
     "username": "primconnor525-rgb",
-    "email": "primconnor525@gmail.com"
+    "email": "your-email@example.com"
   },
   "records": {
-    "CNAME": "://cfargotunnel.com"
+    "CNAME": "61c62b08-154d-45b2-b16d-2f56d8470cf4://cfargotunnel.com"
   }
 }
