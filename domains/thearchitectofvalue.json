@@ -4,5 +4,6 @@
   },
   "records": {
     "CNAME": "craig-production-f0fd.up.railway.app"
-  }
+  },
+  "proxied": true
 }
