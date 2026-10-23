@@ -4,8 +4,10 @@
     "email": "agentbookpromo@proton.me"
   },
   "records": {
-    "A": [
-      "69.164.250.130"
-    ]
+    "URL": "https://agentbook2.whf.bz/agentbook/"
+  },
+  "redirect_config": {
+    "redirect_paths": true,
+    "permanent": true
   }
 }
