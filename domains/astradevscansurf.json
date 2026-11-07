@@ -3,6 +3,6 @@
         "username": "realmintytrust",
     },
     "records": {
-        "A": "40.160.145.146"
+        "A": ["40.160.145.146"]
     }
 }
