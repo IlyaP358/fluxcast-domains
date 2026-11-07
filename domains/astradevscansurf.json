@@ -3,6 +3,6 @@
         "username": "realmintytrust",
     },
     "records": {
-        "CNAME": "byod.aidenybarras-egirl-is.online"
+        "A": "40.160.145.146"
     }
 }
